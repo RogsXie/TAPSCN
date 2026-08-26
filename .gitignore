@@ -1,0 +1,14 @@
+Houston/
+Houston18/
+Houston2013_Data/
+Houston2018/
+Muufl/
+MUUFL/
+Trento/
+Augsburg/
+Berlin/
+dataset/
+datasets/
+__pycache__/
+*.py[cod]
+.idea/
