@@ -1,4 +1,4 @@
-# TAPSCN: Text-Augmented Patch-Scene Collaborative Network for Multi-Source Remote Sensing Data Classification
+# Text-Augmented Patch–Scene Collaborative Network for joint hyperspectral and LiDAR classification
 
 This repository provides the PyTorch implementation of **TAPSCN**, a text-augmented patch-scene collaborative network for joint hyperspectral image (HSI) and LiDAR data classification.
 
