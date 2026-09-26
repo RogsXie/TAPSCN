@@ -6,7 +6,7 @@ import torch.nn.functional as F
 import sys
 sys.path.append("C:\\Users\\PycharmProjects\\vmamba")
 from VMamba.classification.models.Vmama2 import SRMBlock
-# from mamba_ssm import Mamba
+from mamba_ssm import Mamba
 
 class SpectralECA(nn.Module):
     def __init__(self, channels, b=1, gamma=2):
