@@ -59,88 +59,88 @@ class LayerNorm(nn.LayerNorm):
 
 
 # Mamba reference implementation
-# class Text_Encoder(nn.Module):
-#     def __init__(self, embed_dim, context_length, vocab_size, transformer_width):
-#         super().__init__()
-#         self.context_length = context_length
-#         self.transformer_width = transformer_width
-#         self.token_embedding = nn.Embedding(vocab_size, transformer_width)
-#         self.positional_embedding = nn.Parameter(torch.empty(context_length, transformer_width))
-#         self.mamba = Mamba(d_model=transformer_width, d_state=16, d_conv=4, expand=2)
-#         self.ln_final = LayerNorm(transformer_width)
-#         self.text_projection = nn.Parameter(torch.empty(transformer_width, embed_dim))
-#         nn.init.normal_(self.positional_embedding, std=0.01)
-#         nn.init.normal_(self.text_projection, std=transformer_width ** -0.5)
-#
-#     def forward(self, text: torch.Tensor) -> torch.Tensor:
-#         x = self.token_embedding(text).float() + self.positional_embedding.float()
-#         x = self.mamba(x)
-#         x = self.ln_final(x)
-#         return x[torch.arange(x.shape[0]), text.argmax(dim=-1)] @ self.text_projection
-#
-#
-# class Text_Decoder(nn.Module):
-#     def __init__(self, embed_dim=128, context_length=77, vocab_size=49408, transformer_width=64):
-#         super().__init__()
-#         self.context_length = context_length
-#         self.transformer_width = transformer_width
-#         self.expand = nn.Linear(embed_dim, context_length * transformer_width)
-#         self.mamba = Mamba(d_model=transformer_width, d_state=16, d_conv=4, expand=2)
-#
-#     def forward(self, z: torch.Tensor) -> torch.Tensor:
-#         x = self.expand(z).view(z.size(0), self.context_length, self.transformer_width)
-#         return self.mamba(x)
-
-
 class Text_Encoder(nn.Module):
     def __init__(self, embed_dim, context_length, vocab_size, transformer_width):
         super().__init__()
         self.context_length = context_length
         self.transformer_width = transformer_width
         self.token_embedding = nn.Embedding(vocab_size, transformer_width)
-        self.positional_embedding = nn.Parameter(
-            torch.empty(context_length, transformer_width)
-        )
-        encoder_layer = nn.TransformerEncoderLayer(
-            d_model=transformer_width,
-            nhead=4,
-            dim_feedforward=transformer_width * 4,
-            dropout=0.1,
-            batch_first=True,
-        )
-        self.transformer = nn.TransformerEncoder(encoder_layer, num_layers=2)
+        self.positional_embedding = nn.Parameter(torch.empty(context_length, transformer_width))
+        self.mamba = Mamba(d_model=transformer_width, d_state=16, d_conv=4, expand=2)
         self.ln_final = LayerNorm(transformer_width)
         self.text_projection = nn.Parameter(torch.empty(transformer_width, embed_dim))
         nn.init.normal_(self.positional_embedding, std=0.01)
-        nn.init.normal_(self.text_projection, std=transformer_width ** (-0.5))
+        nn.init.normal_(self.text_projection, std=transformer_width ** -0.5)
 
     def forward(self, text: torch.Tensor) -> torch.Tensor:
         x = self.token_embedding(text).float() + self.positional_embedding.float()
-        x = self.transformer(x)
+        x = self.mamba(x)
         x = self.ln_final(x)
         return x[torch.arange(x.shape[0]), text.argmax(dim=-1)] @ self.text_projection
 
 
 class Text_Decoder(nn.Module):
-    def __init__(
-        self, embed_dim=128, context_length=77, vocab_size=49408, transformer_width=64
-    ):
+    def __init__(self, embed_dim=128, context_length=77, vocab_size=49408, transformer_width=64):
         super().__init__()
         self.context_length = context_length
         self.transformer_width = transformer_width
         self.expand = nn.Linear(embed_dim, context_length * transformer_width)
-        decoder_layer = nn.TransformerEncoderLayer(
-            d_model=transformer_width,
-            nhead=4,
-            dim_feedforward=transformer_width * 4,
-            dropout=0.1,
-            batch_first=True,
-        )
-        self.transformer = nn.TransformerEncoder(decoder_layer, num_layers=2)
+        self.mamba = Mamba(d_model=transformer_width, d_state=16, d_conv=4, expand=2)
 
     def forward(self, z: torch.Tensor) -> torch.Tensor:
         x = self.expand(z).view(z.size(0), self.context_length, self.transformer_width)
-        return self.transformer(x)
+        return self.mamba(x)
+
+
+# class Text_Encoder(nn.Module):
+#     def __init__(self, embed_dim, context_length, vocab_size, transformer_width):
+#         super().__init__()
+#         self.context_length = context_length
+#         self.transformer_width = transformer_width
+#         self.token_embedding = nn.Embedding(vocab_size, transformer_width)
+#         self.positional_embedding = nn.Parameter(
+#             torch.empty(context_length, transformer_width)
+#         )
+#         encoder_layer = nn.TransformerEncoderLayer(
+#             d_model=transformer_width,
+#             nhead=4,
+#             dim_feedforward=transformer_width * 4,
+#             dropout=0.1,
+#             batch_first=True,
+#         )
+#         self.transformer = nn.TransformerEncoder(encoder_layer, num_layers=2)
+#         self.ln_final = LayerNorm(transformer_width)
+#         self.text_projection = nn.Parameter(torch.empty(transformer_width, embed_dim))
+#         nn.init.normal_(self.positional_embedding, std=0.01)
+#         nn.init.normal_(self.text_projection, std=transformer_width ** (-0.5))
+
+#     def forward(self, text: torch.Tensor) -> torch.Tensor:
+#         x = self.token_embedding(text).float() + self.positional_embedding.float()
+#         x = self.transformer(x)
+#         x = self.ln_final(x)
+#         return x[torch.arange(x.shape[0]), text.argmax(dim=-1)] @ self.text_projection
+
+
+# class Text_Decoder(nn.Module):
+#     def __init__(
+#         self, embed_dim=128, context_length=77, vocab_size=49408, transformer_width=64
+#     ):
+#         super().__init__()
+#         self.context_length = context_length
+#         self.transformer_width = transformer_width
+#         self.expand = nn.Linear(embed_dim, context_length * transformer_width)
+#         decoder_layer = nn.TransformerEncoderLayer(
+#             d_model=transformer_width,
+#             nhead=4,
+#             dim_feedforward=transformer_width * 4,
+#             dropout=0.1,
+#             batch_first=True,
+#         )
+#         self.transformer = nn.TransformerEncoder(decoder_layer, num_layers=2)
+
+#     def forward(self, z: torch.Tensor) -> torch.Tensor:
+#         x = self.expand(z).view(z.size(0), self.context_length, self.transformer_width)
+#         return self.transformer(x)
 
 
 class FrequencyDecoupledVSS(nn.Module):
