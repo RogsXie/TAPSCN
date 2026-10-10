@@ -137,8 +137,9 @@ If this code is useful for your research, please cite our work. The publication 
 ```bibtex
 @article{xie2026tapscn,
   title   = {Text-Augmented Patch–Scene Collaborative Network for joint hyperspectral and LiDAR classification},
-  author  = {Xie, Zhenyang and others},
-  year    = {2026}
+  author  = {Xie, Zhenyang and and Lv, Li and Gao, Hongmin and Xu, Shufang and Xie, Haihua and Chen, Wenping and Kang, Shuiping},
+  journal={Information Fusion},
+  year    = {2026},
   note = {DOI: 10.1016/j.inffus.2026.104846}
 }
 ```
