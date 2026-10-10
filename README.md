@@ -139,6 +139,7 @@ If this code is useful for your research, please cite our work. The publication 
   title   = {Text-Augmented Patch–Scene Collaborative Network for joint hyperspectral and LiDAR classification},
   author  = {Xie, Zhenyang and others},
   year    = {2026}
+  note = {DOI: 10.1016/j.inffus.2026.104846}
 }
 ```
 
