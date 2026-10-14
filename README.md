@@ -140,6 +140,8 @@ If this code is useful for your research, please cite our work. The publication 
   author  = {Xie, Zhenyang and and Lv, Li and Gao, Hongmin and Xu, Shufang and Xie, Haihua and Chen, Wenping and Kang, Shuiping},
   journal={Information Fusion},
   year    = {2026},
+  volume={139},
+  note = {Art. no. 104846},
   note = {DOI: 10.1016/j.inffus.2026.104846}
 }
 ```
