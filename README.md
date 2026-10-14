@@ -139,7 +139,7 @@ L. Lv, Z. Xie, H. Gao, S. Xu, H. Xie, W. Chen, S. Kang, Text-augmented patch–s
 ```bibtex
 @article{xie2026tapscn,
   title   = {Text-Augmented Patch–Scene Collaborative Network for joint hyperspectral and LiDAR classification},
-  author  = {Xie, Zhenyang and and Lv, Li and Gao, Hongmin and Xu, Shufang and Xie, Haihua and Chen, Wenping and Kang, Shuiping},
+  author  = {Lv, Li and Xie, Zhenyang and and Gao, Hongmin and Xu, Shufang and Xie, Haihua and Chen, Wenping and Kang, Shuiping},
   journal={Information Fusion},
   year    = {2026},
   volume={139},
