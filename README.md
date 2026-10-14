@@ -134,6 +134,8 @@ The best checkpoint and evaluation outputs are saved under the directory named a
 
 If this code is useful for your research, please cite our work. The publication information will be updated after the paper is formally published.
 
+L. Lv, Z. Xie, H. Gao, S. Xu, H. Xie, W. Chen, S. Kang, Text-augmented patch–scene collaborative network for joint hyperspectral and LiDAR classification, Inf. Fusion 139 (2027) 104846.
+
 ```bibtex
 @article{xie2026tapscn,
   title   = {Text-Augmented Patch–Scene Collaborative Network for joint hyperspectral and LiDAR classification},
